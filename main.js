@@ -74,6 +74,10 @@
     renderer.render(scene, camera);
     frame(loop);
   }
-  var frame = webkitRequestAnimationFrame;
+  var frame = requestAnimationFrame ||
+              webkitRequestAnimationFrame ||
+              mozRequestAnimationFrame ||
+              function(callback) { setTimeout(callback, 1000 / 60); };
+
   loop();
 
