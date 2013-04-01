@@ -1,3 +1,4 @@
+(function() {
 	// set the scene size
 	var WIDTH = window.innerWidth,
 	    HEIGHT = window.innerHeight;
@@ -56,22 +57,24 @@
 	document.getElementById('container').appendChild(renderer.domElement);
 
 	// set up the sphere vars
-	var radius = 20, segments = 32, rings = 32;
+	var segments = 32, rings = 32;
 
 	// create a new mesh with sphere geometry -
 	// we will cover the sphereMaterial next!
-  for (var j = 0; j < 10; j++) {
+  for (var j = 0; j < 20; j++) {
 
     // create the sphere's material & randomize color
+    var radius = (Math.random()*30) + 15;
     var color = (Math.random()*255 << 16) | (Math.random()*255 << 8) | Math.random()*255;
     var sphereMaterial = new THREE.MeshLambertMaterial({color: color});
     var sphere = new THREE.Mesh(
        new THREE.SphereGeometry(radius, segments, rings),
        sphereMaterial);
     // randomize position
-    sphere.position.x = (Math.random() * 200) - 100;
-    sphere.position.y = (Math.random() * 200) - 100;
-    sphere.position.z = (Math.random() * 200) - 100;
+    var p = 400;
+    sphere.position.x = (Math.random() * p) - p/2;
+    sphere.position.y = (Math.random() * p) - p/2;
+    sphere.position.z = (Math.random() * p) - p;
     // add the sphere to the scene
     scene.add(sphere);
   }
@@ -84,7 +87,7 @@
 
   var lightBulb = new THREE.Mesh(
      new THREE.SphereGeometry(5, 8, 8),
-     new THREE.MeshLambertMaterial({color: 0xffff88, emissive: 0xbbbbbb}));
+     new THREE.MeshLambertMaterial({emissive: 0xffffcc}));
   scene.add(lightBulb);
 
 	// add to the scene
@@ -93,10 +96,10 @@
 	// draw!
   var i = 0, x1, y1, g;
   function loop() {
-    i = i < 2*Math.PI ? i+0.05 : 0;
-    pointLight.position.x = lightBulb.position.x = 100 * Math.cos(i);
+    i = i < 2*Math.PI ? i+0.01 : 0;
+    pointLight.position.x = lightBulb.position.x = 150 * Math.cos(i);
     pointLight.position.y = lightBulb.position.y = 100 * Math.sin(i);
-    pointLight.position.z = lightBulb.position.z = -150 * Math.sin(i);
+    pointLight.position.z = lightBulb.position.z = -150 + (-200 * Math.sin(i));
     renderer.render(cube.scene, cube.camera);
     renderer.render(scene, camera);
     frame(loop);
@@ -108,3 +111,4 @@
 
   loop();
 
+})();
