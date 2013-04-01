@@ -43,9 +43,6 @@
         }),
         mesh = new THREE.Mesh( new THREE.CubeGeometry( 100, 100, 100 ), material );
 
-    var ambient = new THREE.AmbientLight( 0xffffff );
-    sceneCube.add( ambient );
-
     sceneCube.add( mesh );
     return {
       scene: sceneCube,
