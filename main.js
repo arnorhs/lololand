@@ -28,10 +28,6 @@
 	// attach the render-supplied DOM element
 	$container.append(renderer.domElement);
 
-	// create the sphere's material
-	var sphereMaterial = new THREE.MeshLambertMaterial({color: 0x333ddd});
-
-	var lightBulbMaterial = new THREE.MeshLambertMaterial({color: 0xffff88, emissive: 0xbbbbbb});
 
 	// set up the sphere vars
 	var radius = 20, segments = 32, rings = 32;
@@ -39,9 +35,14 @@
 	// create a new mesh with sphere geometry -
 	// we will cover the sphereMaterial next!
   for (var j = 0; j < 10; j++) {
+
+    // create the sphere's material & randomize color
+    var color = (Math.random()*255 << 16) | (Math.random()*255 << 8) | Math.random()*255;
+    var sphereMaterial = new THREE.MeshLambertMaterial({color: color});
     var sphere = new THREE.Mesh(
        new THREE.SphereGeometry(radius, segments, rings),
        sphereMaterial);
+    // randomize position
     sphere.position.x = (Math.random() * 200) - 100;
     sphere.position.y = (Math.random() * 200) - 100;
     sphere.position.z = (Math.random() * 200) - 100;
@@ -57,7 +58,7 @@
 
   var lightBulb = new THREE.Mesh(
      new THREE.SphereGeometry(5, 8, 8),
-     lightBulbMaterial);
+     new THREE.MeshLambertMaterial({color: 0xffff88, emissive: 0xbbbbbb}));
   scene.add(lightBulb);
 
 	// add to the scene
