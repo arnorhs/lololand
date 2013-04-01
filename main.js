@@ -9,10 +9,6 @@
 	    NEAR = 0.1,
 	    FAR = 10000;
 
-	// get the DOM element to attach to
-	// - assume we've got jQuery to hand
-	var $container = $('#container');
-
 	// create a WebGL renderer, camera
 	// and a scene
 	var renderer = new THREE.WebGLRenderer();
@@ -26,8 +22,7 @@
 	renderer.setSize(WIDTH, HEIGHT);
 
 	// attach the render-supplied DOM element
-	$container.append(renderer.domElement);
-
+	document.getElementById('container').appendChild(renderer.domElement);
 
 	// set up the sphere vars
 	var radius = 20, segments = 32, rings = 32;
