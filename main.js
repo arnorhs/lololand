@@ -1,4 +1,3 @@
-
 	// set the scene size
 	var WIDTH = window.innerWidth,
 	    HEIGHT = window.innerHeight;
@@ -9,6 +8,8 @@
 	    NEAR = 0.1,
 	    FAR = 10000;
 
+
+
 	// create a WebGL renderer, camera
 	// and a scene
 	var renderer = new THREE.WebGLRenderer();
@@ -18,8 +19,41 @@
 	// the camera starts at 0,0,0 so pull it back
 	camera.position.z = 200;
 
-	// start the renderer
 	renderer.setSize(WIDTH, HEIGHT);
+  renderer.autoClear = false;
+
+
+  var cube = (function() {
+    var urls = ["sky/f.jpg", "sky/f.jpg",
+                "sky/f.jpg", "sky/f.jpg",
+                "sky/f.jpg", "sky/f.jpg"];
+    var textureCube = THREE.ImageUtils.loadTextureCube(urls);
+    textureCube.format = THREE.RGBFormat;
+
+    sceneCube = new THREE.Scene();
+    var shader = THREE.ShaderLib[ "cube" ];
+    shader.uniforms["tCube"].value = textureCube;
+
+    var material = new THREE.ShaderMaterial({
+          fragmentShader: shader.fragmentShader,
+          vertexShader: shader.vertexShader,
+          uniforms: shader.uniforms,
+          depthWrite: false,
+          side: THREE.BackSide
+        }),
+        mesh = new THREE.Mesh( new THREE.CubeGeometry( 100, 100, 100 ), material );
+
+    var ambient = new THREE.AmbientLight( 0xffffff );
+    sceneCube.add( ambient );
+
+    sceneCube.add( mesh );
+    return {
+      scene: sceneCube,
+      camera: new THREE.PerspectiveCamera( 70, ASPECT, 1, 100000 )
+    };
+
+  })();
+
 
 	// attach the render-supplied DOM element
 	document.getElementById('container').appendChild(renderer.domElement);
@@ -66,6 +100,7 @@
     pointLight.position.x = lightBulb.position.x = 100 * Math.cos(i);
     pointLight.position.y = lightBulb.position.y = 100 * Math.sin(i);
     pointLight.position.z = lightBulb.position.z = -150 * Math.sin(i);
+    renderer.render(cube.scene, cube.camera);
     renderer.render(scene, camera);
     frame(loop);
   }
