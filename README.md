@@ -2,5 +2,5 @@
 
 Looks something like this, but is animated..
 
-![Screenshot](http://f.cl.ly/items/3O2w152T1V1h453E2u3t/Screen%20Shot%202013-03-31%20at%205.39.09%20PM.png)
+![Screenshot](http://f.cl.ly/items/3E0d0n2F1t0k0H1w3N0a/Screen%20Shot%202013-03-31%20at%209.26.43%20PM.png)
 
