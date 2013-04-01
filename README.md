@@ -1,4 +1,4 @@
-Nothing to see here. move along.
+[View demo](https://dl.dropbox.com/u/647738/demos/lololand/index.html)
 
 Looks something like this, but is animated..
 
